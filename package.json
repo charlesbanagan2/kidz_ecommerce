@@ -1,0 +1,17 @@
+{
+  "name": "kids",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minimal buyer cart with selective checkout (Express + NeDB).",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nedb-promises": "^6.2.3"
+  }
+}

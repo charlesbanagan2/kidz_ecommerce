@@ -1,0 +1,24 @@
+# Additional requirements for QR Code Tracking System
+# Add these to your existing requirements.txt file
+
+# QR Code generation
+qrcode[pil]==7.4.2
+
+# Image processing for QR codes
+Pillow==10.0.1
+
+# JSON handling (usually included with Python)
+# json - built-in module
+
+# Random string generation (usually included with Python)
+# random - built-in module
+# string - built-in module
+
+# Base64 encoding (usually included with Python)
+# base64 - built-in module
+
+# IO operations (usually included with Python)
+# io - built-in module
+
+# Installation command:
+# pip install qrcode[pil]==7.4.2 Pillow==10.0.1

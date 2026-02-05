@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomica Premium Honda Civic Type R - Toy Kingdom</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="static/css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Toy Kingdom</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">Products</a>
+                    <a href="#" class="nav-link">Categories</a>
+                    <a href="#" class="nav-link">Contact</a>
+                </nav>
+                <div class="header-actions">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Product Section -->
+            <section class="product-section">
+                <div class="product-layout">
+                    <!-- Left Column - Product Images -->
+                    <div class="product-images">
+                        <div class="thumbnail-gallery">
+                            <img src="https://picsum.photos/seed/toy1/80/80.jpg" alt="Thumbnail 1" class="thumbnail active">
+                            <img src="https://picsum.photos/seed/toy2/80/80.jpg" alt="Thumbnail 2" class="thumbnail">
+                            <img src="https://picsum.photos/seed/toy3/80/80.jpg" alt="Thumbnail 3" class="thumbnail">
+                            <img src="https://picsum.photos/seed/toy4/80/80.jpg" alt="Thumbnail 4" class="thumbnail">
+                        </div>
+                        <div class="main-image-container">
+                            <img src="https://picsum.photos/seed/toy1/600/600.jpg" alt="Tomica Premium Honda Civic Type R" class="main-image">
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Product Info -->
+                    <div class="product-info">
+                        <div class="brand">Toy Kingdom</div>
+                        <h1 class="product-title">Tomica Premium Honda Civic Type R (FK2) (SP)'25</h1>
+                        
+                        <div class="price-section">
+                            <span class="price">₱599.00</span>
+                        </div>
+
+                        <div class="stock-status">
+                            <span class="stock-dot"></span>
+                            <span class="stock-text">In Stock</span>
+                        </div>
+
+                        <div class="quantity-selector">
+                            <label for="quantity">Quantity:</label>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity()">-</button>
+                                <input type="number" id="quantity" value="1" min="1" max="10" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity()">+</button>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-primary add-to-cart">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                            <button class="btn btn-secondary add-to-wishlist">
+                                <i class="fas fa-heart"></i>
+                                Add to Wishlist
+                            </button>
+                        </div>
+
+                        <div class="social-share">
+                            <span>Share:</span>
+                            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Description Card -->
+            <section class="description-card">
+                <div class="card">
+                    <h2 class="card-title">Product Description</h2>
+                    <div class="description-content">
+                        <div class="description-item">
+                            <strong>Material:</strong> Die-cast metal with plastic parts
+                        </div>
+                        <div class="description-item">
+                            <strong>Dimensions:</strong> 7.5cm x 3.5cm x 2.5cm
+                        </div>
+                        <div class="description-item">
+                            <strong>Scale:</strong> 1:64
+                        </div>
+                        <div class="description-item">
+                            <strong>Features:</strong> Detailed interior, rubber tires, authentic Honda Civic Type R design
+                        </div>
+                        <div class="description-item">
+                            <strong>Age Recommendation:</strong> 3 years and above
+                        </div>
+                        <div class="description-item">
+                            <strong>Packaging:</strong> Comes in collector's display box
+                        </div>
+                        <div class="description-text">
+                            <p>Experience the thrill of owning a piece of automotive excellence with the Tomica Premium Honda Civic Type R (FK2) (SP)'25. This meticulously crafted die-cast model captures the essence of Honda's legendary hot hatch, featuring authentic details and premium finish that collectors and enthusiasts will appreciate.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Reviews Card -->
+            <section class="reviews-card">
+                <div class="card">
+                    <h2 class="card-title">Customer Reviews</h2>
+                    <div class="rating-summary">
+                        <div class="average-rating">
+                            <span class="rating-number">4.5</span>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="review-count">(23 reviews)</span>
+                        </div>
+                        <button class="write-review-btn">Write a Review</button>
+                    </div>
+
+                    <div class="reviews-list">
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="user-avatar">
+                                    <img src="https://picsum.photos/seed/user1/40/40.jpg" alt="User Avatar">
+                                </div>
+                                <div class="user-info">
+                                    <div class="username">John Martinez</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="review-date">2 days ago</div>
+                            </div>
+                            <div class="review-content">
+                                <p>Amazing detail! The Tomica Premium series never disappoints. This Honda Civic Type R replica is perfect for my collection. The paint quality is excellent and the small details are incredibly accurate.</p>
+                            </div>
+                            <div class="review-images">
+                                <img src="https://picsum.photos/seed/review1/60/60.jpg" alt="Review Image">
+                                <img src="https://picsum.photos/seed/review2/60/60.jpg" alt="Review Image">
+                            </div>
+                        </div>
+
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="user-avatar">
+                                    <img src="https://picsum.photos/seed/user2/40/40.jpg" alt="User Avatar">
+                                </div>
+                                <div class="user-info">
+                                    <div class="username">Sarah Chen</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="review-date">1 week ago</div>
+                            </div>
+                            <div class="review-content">
+                                <p>Great quality for the price. My son loves it! The details are impressive and it feels sturdy. Perfect gift for car enthusiasts of all ages.</p>
+                            </div>
+                        </div>
+
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="user-avatar">
+                                    <img src="https://picsum.photos/seed/user3/40/40.jpg" alt="User Avatar">
+                                </div>
+                                <div class="user-info">
+                                    <div class="username">Mike Rodriguez</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="review-date">2 weeks ago</div>
+                            </div>
+                            <div class="review-content">
+                                <p>Good collector's item. The packaging is premium and the model itself is well-made. Only wish it came with a display stand.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

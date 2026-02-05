@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Alert Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/alert-modern.css') }}" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">Modern Alert System Demo</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="lead">Click the buttons below to see different types of modern alerts:</p>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <button onclick="showSuccessAlert('Operation completed successfully!', 'Success')" class="btn btn-success w-100">
+                                    <i class="fas fa-check-circle me-2"></i>Success Alert
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button onclick="showErrorAlert('An error occurred. Please try again.', 'Error')" class="btn btn-danger w-100">
+                                    <i class="fas fa-exclamation-circle me-2"></i>Error Alert
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button onclick="showWarningAlert('Please review your input before proceeding.', 'Warning')" class="btn btn-warning w-100">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>Warning Alert
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button onclick="showInfoAlert('Here is some useful information for you.', 'Information')" class="btn btn-info w-100">
+                                    <i class="fas fa-info-circle me-2"></i>Info Alert
+                                </button>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h5>Cancel Request Demo</h5>
+                        <p class="text-muted">This simulates the cancel request functionality with modern alerts:</p>
+                        
+                        <button onclick="simulateCancelRequest()" class="btn btn-outline-danger">
+                            <i class="fas fa-times-circle me-2"></i>Simulate Cancel Request
+                        </button>
+
+                        <hr class="my-4">
+
+                        <h5>Features:</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Beautiful gradient backgrounds</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Smooth slide-in animations</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Auto-dismiss after specified time</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Manual close button</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Mobile responsive design</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Multiple alert types</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/alert-modern.js') }}"></script>
+    
+    <script>
+        function simulateCancelRequest() {
+            // Show info alert first
+            showInfoAlert('Processing your cancel request...', 'Processing', 2000);
+            
+            // Then show success after delay
+            setTimeout(() => {
+                showSuccessAlert('Return request cancelled successfully! You can submit a new request anytime.', 'Success', 5000);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
