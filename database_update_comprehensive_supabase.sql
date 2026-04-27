@@ -24,7 +24,9 @@ ADD COLUMN IF NOT EXISTS "verification_code" varchar(10) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS "valid_id" varchar(255) DEFAULT NULL;
 
 -- Add indexes for User table
-CREATE INDEX IF NOT EXISTS "idx_user_email" ON "user" ("email");CREATE INDEX IF NOT EXISTS "idx_user_username" ON "user" ("username");CREATE INDEX IF NOT EXISTS "idx_user_status" ON "user" ("status");
+CREATE INDEX IF NOT EXISTS "idx_user_email" ON "user" ("email");
+CREATE INDEX IF NOT EXISTS "idx_user_username" ON "user" ("username");
+CREATE INDEX IF NOT EXISTS "idx_user_status" ON "user" ("status");
 
 -- Update SellerApplication table
 ALTER TABLE "seller_application" 
@@ -314,8 +316,8 @@ ADD COLUMN IF NOT EXISTS "status" varchar(20) DEFAULT 'active';
 
 -- Update ThemeSetting table
 -- ALTER TABLE "theme_setting" (no-op: MySQL MODIFY COLUMN statements omitted)
--- MODIFY COLUMN "slide_duration" double precision precision DEFAULT 6,
--- MODIFY COLUMN "transition_duration" double precision precision DEFAULT 0.8;
+-- MODIFY COLUMN "slide_duration" double precision DEFAULT 6,
+-- MODIFY COLUMN "transition_duration" double precision DEFAULT 0.8;
 
 -- Update DeliveryPersonnel table
 -- ALTER TABLE "delivery_personnel" (no-op: MySQL MODIFY COLUMN statements omitted)
@@ -364,24 +366,30 @@ ADD CONSTRAINT "provider_user_id" UNIQUE ("provider_user_id");
 
 -- Insert default theme setting if not exists
 INSERT INTO "theme_setting" ("id", "logo_filename", "site_name", "primary_color", "secondary_color", "footer_color", "slide_duration", "transition_duration") 
-VALUES (1, 'logo_ulit.png', 'Kids & Baby Store', '#1a2842', '#000000', '#1a2842', 6, 0.8);
+VALUES (1, 'logo_ulit.png', 'Kids & Baby Store', '#1a2842', '#000000', '#1a2842', 6, 0.8)
+ON CONFLICT ("id") DO NOTHING;
 
 -- Insert default admin user if not exists
+-- NOTE: Default admin password is for initial setup only and must be changed immediately after first login.
 INSERT INTO "user" ("id", "username", "first_name", "last_name", "email", "password", "phone", "address", "role", "status", "email_verified", "verification_code", "valid_id", "created_at", "two_factor_enabled", "email_notifications") 
-VALUES (1, 'admin', 'Admin', 'User', 'admin@kidscommerce.com', 'admin123', '09123456789', 'Admin Office, Manila', 'admin', 'active', false, NULL, NULL, NOW(), false, true);
+VALUES (1, 'admin', 'Admin', 'User', 'admin@kidscommerce.com', 'admin123', '09123456789', 'Admin Office, Manila', 'admin', 'active', false, NULL, NULL, NOW(), false, true)
+ON CONFLICT ("id") DO NOTHING;
 
 -- Insert admin profile if not exists
 INSERT INTO "admin_profile" ("id", "user_id", "full_name", "contact_number", "system_role", "last_login", "account_status", "two_factor_enabled", "password_reset_required", "created_at", "updated_at") 
-VALUES (1, 1, 'Admin User', '09123456789', 'Administrator', NULL, 'Active', false, false, NOW(), NOW());
+VALUES (1, 1, 'Admin User', '09123456789', 'Administrator', NULL, 'Active', false, false, NOW(), NOW())
+ON CONFLICT ("id") DO NOTHING;
 
 -- Update existing users to have usernames if missing
 UPDATE "user" SET "username" = CONCAT('user', "id") WHERE "username" = 'user' OR "username" IS NULL;
 
 -- Update existing products to have proper defaults
-UPDATE "product" SET "featured" = false WHERE "featured" IS NULL;UPDATE "product" SET "show_in_new_arrival" = false WHERE "show_in_new_arrival" IS NULL;UPDATE "product" SET "is_deleted" = false WHERE "is_deleted" IS NULL;
+UPDATE "product" SET "featured" = false WHERE "featured" IS NULL;
+UPDATE "product" SET "show_in_new_arrival" = false WHERE "show_in_new_arrival" IS NULL;
+UPDATE "product" SET "is_deleted" = false WHERE "is_deleted" IS NULL;
 
 -- Update existing addresses to have proper defaults
-UPDATE "address" SET "latitude" = NULL WHERE "latitude" IS NULL;UPDATE "address" SET "longitude" = NULL WHERE "longitude" IS NULL;
+-- No default backfill needed for nullable latitude/longitude in PostgreSQL.
 
 -- Update existing notifications to have proper defaults
 UPDATE "notification" SET "is_read" = false WHERE "is_read" IS NULL;

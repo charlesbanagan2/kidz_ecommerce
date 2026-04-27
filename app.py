@@ -48,7 +48,7 @@ except Exception:
     pass
 
 
-# Database Configuration - Supabase/PostgreSQL via env, with MySQL fallback
+# Database Configuration - precedence: DATABASE_URI, then SUPABASE_DATABASE_URL, then MySQL parts fallback
 DATABASE_URI = os.getenv('DATABASE_URI') or os.getenv('SUPABASE_DATABASE_URL')
 if not DATABASE_URI:
     MYSQL_USER = os.getenv('MYSQL_USER', 'root')
