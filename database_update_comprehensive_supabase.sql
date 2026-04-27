@@ -7,7 +7,7 @@
 -- Disable foreign key checks temporarily
 -- Update User table to match model
 ALTER TABLE "user" 
-ADD COLUMN IF NOT EXISTS "username" varchar(30) NOT NULL DEFAULT 'user',
+ADD COLUMN IF NOT EXISTS "username" varchar(30),
 -- MODIFY COLUMN "first_name" varchar(80) NOT NULL,
 -- MODIFY COLUMN "last_name" varchar(80) NOT NULL,
 -- MODIFY COLUMN "email" varchar(120) NOT NULL,

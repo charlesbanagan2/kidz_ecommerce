@@ -76,7 +76,7 @@ if DATABASE_URI.startswith(('mysql://', 'mysql+pymysql://', 'mariadb://', 'maria
         'read_timeout': 60,
         'write_timeout': 60
     }
-elif DATABASE_URI.startswith(('postgres://', 'postgresql://', 'postgresql+psycopg2://')):
+elif DATABASE_URI.startswith(('postgresql://', 'postgresql+psycopg2://')):
     engine_options['connect_args'] = {
         'connect_timeout': 60,
         'sslmode': os.getenv('DB_SSLMODE', 'require')
