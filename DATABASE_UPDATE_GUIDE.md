@@ -47,7 +47,17 @@ python execute_database_update.py
 mysql -u root -p kids_ecommerce < database_update_comprehensive.sql
 ```
 
-#### **Option 3: Using phpMyAdmin**
+#### **Option 3: Supabase SQL Editor (PostgreSQL)**
+Use the Supabase-ready script:
+- `database_update_comprehensive_supabase.sql`
+
+Steps:
+1. Open your Supabase project
+2. Go to **SQL Editor**
+3. Paste the contents of `database_update_comprehensive_supabase.sql`
+4. Run the script
+
+#### **Option 4: Using phpMyAdmin**
 1. Open phpMyAdmin
 2. Select `kids_ecommerce` database
 3. Click "Import"
