@@ -53,6 +53,8 @@ except Exception:
 # - SUPABASE_DATABASE_URL is supported as a compatibility alias for Supabase-focused setups.
 # - If neither is set, MySQL parts fallback is used.
 DATABASE_URI = os.getenv('DATABASE_URI') or os.getenv('SUPABASE_DATABASE_URL')
+if DATABASE_URI and DATABASE_URI.startswith('postgres://'):
+    DATABASE_URI = DATABASE_URI.replace('postgres://', 'postgresql://', 1)
 if not DATABASE_URI:
     MYSQL_USER = os.getenv('MYSQL_USER', 'root')
     MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', '')

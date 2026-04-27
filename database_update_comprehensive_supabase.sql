@@ -16,7 +16,7 @@ ADD COLUMN IF NOT EXISTS "username" varchar(30) NOT NULL DEFAULT 'user',
 -- MODIFY COLUMN "address" text NOT NULL,
 -- MODIFY COLUMN "role" varchar(20) DEFAULT 'buyer',
 -- MODIFY COLUMN "status" varchar(20) DEFAULT 'active',
--- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT current_timestamp(),
+-- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN IF NOT EXISTS "two_factor_enabled" boolean DEFAULT false,
 ADD COLUMN IF NOT EXISTS "email_notifications" boolean DEFAULT true,
 ADD COLUMN IF NOT EXISTS "email_verified" boolean DEFAULT false,
@@ -32,7 +32,7 @@ CREATE INDEX IF NOT EXISTS "idx_user_status" ON "user" ("status");
 ALTER TABLE "seller_application" 
 ADD COLUMN IF NOT EXISTS "store_description" text,
 ADD COLUMN IF NOT EXISTS "store_category" varchar(100) NOT NULL DEFAULT 'General',
--- MODIFY COLUMN "applied_at" timestamp NOT NULL DEFAULT current_timestamp(),
+-- MODIFY COLUMN "applied_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN IF NOT EXISTS "store_logo" varchar(255) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS "store_mission" text DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS "return_policy" text DEFAULT NULL,
@@ -52,8 +52,8 @@ ALTER TABLE "order"
 -- MODIFY COLUMN "payment_method" varchar(50) NOT NULL,
 -- MODIFY COLUMN "payment_status" varchar(20) DEFAULT 'pending',
 -- MODIFY COLUMN "shipping_address" text NOT NULL,
--- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT current_timestamp(),
--- MODIFY COLUMN "updated_at" timestamp NOT NULL DEFAULT current_timestamp(),
+-- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+-- MODIFY COLUMN "updated_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN IF NOT EXISTS "stock_deducted" boolean DEFAULT false,
 ADD COLUMN IF NOT EXISTS "stock_deducted_at" timestamp NULL DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS "qr_code" varchar(255) DEFAULT NULL,
@@ -83,7 +83,7 @@ ADD CONSTRAINT "order_delivered_by_fk" FOREIGN KEY ("delivered_by") REFERENCES "
 -- Update Cart table
 -- ALTER TABLE "cart" (no-op: MySQL MODIFY COLUMN statements omitted)
 -- MODIFY COLUMN "quantity" integer NOT NULL DEFAULT 1,
--- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT current_timestamp();
+-- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 -- Create missing tables if they don't exist
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS "seller_order_seen" (
   "id" serial,
   "seller_id" integer NOT NULL,
   "order_id" integer NOT NULL,
-  "seen_at" timestamp DEFAULT current_timestamp(),
+  "seen_at" timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY ("id"),
   -- KEY "idx_seller_order_seen_seller" ("seller_id")
   -- KEY "idx_seller_order_seen_order" ("order_id")
@@ -115,12 +115,12 @@ CREATE TABLE IF NOT EXISTS "return_request" (
   "video_filename" varchar(255) DEFAULT NULL,
   "request_type" varchar(20) NOT NULL,
   "status" varchar(30) DEFAULT 'submitted',
-  "created_at" timestamp DEFAULT current_timestamp(),
+  "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
   "processed_at" timestamp DEFAULT NULL,
   "processed_by" integer DEFAULT NULL,
   "refund_amount" decimal(10,2) DEFAULT NULL,
   "admin_notes" text DEFAULT NULL,
-  "updated_at" timestamp DEFAULT current_timestamp(),
+  "updated_at" timestamp DEFAULT CURRENT_TIMESTAMP,
   "seller_response_reason" text DEFAULT NULL,
   PRIMARY KEY ("id"),
   -- KEY "return_request_order_fk" ("order_id")
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS "restock_request" (
   "seller_id" integer NOT NULL,
   "requested_quantity" integer NOT NULL,
   "status" varchar(20) DEFAULT 'pending',
-  "created_at" timestamp DEFAULT current_timestamp(),
+  "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
   "processed_at" timestamp DEFAULT NULL,
   "processed_by" integer DEFAULT NULL,
   "admin_notes" text DEFAULT NULL,
@@ -163,8 +163,8 @@ CREATE TABLE IF NOT EXISTS "return_pickup" (
   "status" varchar(30) DEFAULT 'available',
   "buyer_address" text DEFAULT NULL,
   "seller_address" text DEFAULT NULL,
-  "created_at" timestamp DEFAULT current_timestamp(),
-  "updated_at" timestamp DEFAULT current_timestamp(),
+  "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" timestamp DEFAULT CURRENT_TIMESTAMP,
   "picked_up_at" timestamp DEFAULT NULL,
   "delivered_at" timestamp DEFAULT NULL,
   PRIMARY KEY ("id"),
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS "wallet_transaction" (
   "amount" decimal(10,2) NOT NULL,
   "type" varchar(20) DEFAULT 'credit',
   "source" varchar(50) DEFAULT NULL,
-  "created_at" timestamp DEFAULT current_timestamp(),
+  "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY ("id"),
   -- KEY "wallet_transaction_user_fk" ("user_id")
   -- KEY "wallet_transaction_order_fk" ("order_id")
@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS "rider_chat_message" (
   "message" text NOT NULL,
   "sender_role" varchar(10) NOT NULL,
   "is_read" boolean DEFAULT false,
-  "created_at" timestamp DEFAULT current_timestamp(),
+  "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY ("id"),
   -- KEY "rider_chat_buyer_fk" ("buyer_id")
   -- KEY "rider_chat_rider_fk" ("rider_id")
@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS "coupon" (
   "valid_from" timestamp DEFAULT NULL,
   "valid_until" timestamp DEFAULT NULL,
   "is_active" boolean DEFAULT true,
-  "created_at" timestamp DEFAULT current_timestamp(),
+  "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY ("id"),
   CONSTRAINT "coupon_code_unique" UNIQUE ("code")
 );
@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS "rider_application" (
   "vehicle_number" varchar(20) NOT NULL,
   "employee_id" varchar(50) DEFAULT NULL,
   "status" varchar(20) DEFAULT 'pending',
-  "applied_at" timestamp DEFAULT current_timestamp(),
+  "applied_at" timestamp DEFAULT CURRENT_TIMESTAMP,
   "reviewed_at" timestamp DEFAULT NULL,
   "reviewed_by" integer DEFAULT NULL,
   PRIMARY KEY ("id"),
@@ -252,7 +252,7 @@ ALTER TABLE "product"
 -- MODIFY COLUMN "price" decimal(10,2) NOT NULL,
 -- MODIFY COLUMN "stock" integer NOT NULL DEFAULT 0,
 -- MODIFY COLUMN "status" varchar(20) DEFAULT 'active',
--- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT current_timestamp(),
+-- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN IF NOT EXISTS "video_filename" varchar(255) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS "gallery" json DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS "subcategory_id" integer DEFAULT NULL,
@@ -268,7 +268,7 @@ ADD CONSTRAINT "product_subcategory_fk" FOREIGN KEY ("subcategory_id") REFERENCE
 -- Update Review table
 ALTER TABLE "review"
 -- MODIFY COLUMN "rating" integer NOT NULL,
--- MODIFY COLUMN "created_at" timestamp DEFAULT current_timestamp(),
+-- MODIFY COLUMN "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
 -- MODIFY COLUMN "status" varchar(20) DEFAULT 'published',
 ADD COLUMN IF NOT EXISTS "media" json DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS "verified_purchase" boolean DEFAULT false,
@@ -294,24 +294,24 @@ ADD CONSTRAINT "notification_actor_fk" FOREIGN KEY ("actor_user_id") REFERENCES 
 
 -- Update Address table
 ALTER TABLE "address"
--- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT current_timestamp(),
+-- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN IF NOT EXISTS "latitude" double precision DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS "longitude" double precision DEFAULT NULL;
 
 -- Update Category table
 ALTER TABLE "category"
--- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT current_timestamp(),
+-- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN IF NOT EXISTS "cover_image_filename" varchar(255) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS "status" varchar(20) DEFAULT 'active';
 
 -- Update Subcategory table
 ALTER TABLE "subcategory"
--- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT current_timestamp(),
+-- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN IF NOT EXISTS "status" varchar(20) DEFAULT 'active';
 
 -- Update HeroSlide table
 -- ALTER TABLE "hero_slide" (no-op: MySQL MODIFY COLUMN statements omitted)
--- MODIFY COLUMN "created_at" timestamp DEFAULT current_timestamp(),
+-- MODIFY COLUMN "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
 -- MODIFY COLUMN "is_active" boolean DEFAULT true;
 
 -- Update ThemeSetting table
@@ -350,7 +350,7 @@ DROP TABLE IF EXISTS "flask_dance_oauth";
 
 -- Update OAuth table
 ALTER TABLE "oauth"
--- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT current_timestamp(),
+-- MODIFY COLUMN "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN IF NOT EXISTS "provider_user_id" varchar(256) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS "provider" varchar(50) DEFAULT NULL;
 
@@ -372,12 +372,12 @@ ON CONFLICT ("id") DO NOTHING;
 -- Insert default admin user if not exists
 -- NOTE: Default admin password is for initial setup only and must be changed immediately after first login.
 INSERT INTO "user" ("id", "username", "first_name", "last_name", "email", "password", "phone", "address", "role", "status", "email_verified", "verification_code", "valid_id", "created_at", "two_factor_enabled", "email_notifications") 
-VALUES (1, 'admin', 'Admin', 'User', 'admin@kidscommerce.com', 'CHANGE_ME_IMMEDIATELY', '09123456789', 'Admin Office, Manila', 'admin', 'active', false, NULL, NULL, NOW(), false, true)
+VALUES (1, 'admin', 'Admin', 'User', 'admin@kidscommerce.com', 'CHANGE_ME_IMMEDIATELY', '09123456789', 'Admin Office, Manila', 'admin', 'active', false, NULL, NULL, CURRENT_TIMESTAMP, false, true)
 ON CONFLICT ("id") DO NOTHING;
 
 -- Insert admin profile if not exists
 INSERT INTO "admin_profile" ("id", "user_id", "full_name", "contact_number", "system_role", "last_login", "account_status", "two_factor_enabled", "password_reset_required", "created_at", "updated_at") 
-VALUES (1, 1, 'Admin User', '09123456789', 'Administrator', NULL, 'Active', false, false, NOW(), NOW())
+VALUES (1, 1, 'Admin User', '09123456789', 'Administrator', NULL, 'Active', false, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
 ON CONFLICT ("id") DO NOTHING;
 
 -- Update existing users to have usernames if missing
