@@ -48,7 +48,10 @@ except Exception:
     pass
 
 
-# Database Configuration - precedence: DATABASE_URI, then SUPABASE_DATABASE_URL, then MySQL parts fallback
+# Database Configuration:
+# - DATABASE_URI remains the primary setting used across existing deployments.
+# - SUPABASE_DATABASE_URL is supported as a compatibility alias for Supabase-focused setups.
+# - If neither is set, MySQL parts fallback is used.
 DATABASE_URI = os.getenv('DATABASE_URI') or os.getenv('SUPABASE_DATABASE_URL')
 if not DATABASE_URI:
     MYSQL_USER = os.getenv('MYSQL_USER', 'root')
