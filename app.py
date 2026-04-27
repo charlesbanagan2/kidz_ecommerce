@@ -48,8 +48,8 @@ except Exception:
     pass
 
 
-# Database Configuration - MySQL (XAMPP) or env DATABASE_URI
-DATABASE_URI = os.getenv('DATABASE_URI')
+# Database Configuration - Supabase/PostgreSQL via env, with MySQL fallback
+DATABASE_URI = os.getenv('DATABASE_URI') or os.getenv('SUPABASE_DATABASE_URL')
 if not DATABASE_URI:
     MYSQL_USER = os.getenv('MYSQL_USER', 'root')
     MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', '')
@@ -60,16 +60,23 @@ if not DATABASE_URI:
     DATABASE_URI = f"mysql+pymysql://{auth}{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}?charset=utf8mb4"
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+engine_options = {
     'pool_pre_ping': True,
     'pool_recycle': 3600,
-    'pool_timeout': 30,
-    'connect_args': {
+    'pool_timeout': 30
+}
+if DATABASE_URI.startswith(('mysql://', 'mysql+pymysql://', 'mariadb://', 'mariadb+pymysql://')):
+    engine_options['connect_args'] = {
         'connect_timeout': 60,
         'read_timeout': 60,
         'write_timeout': 60
     }
-}
+elif DATABASE_URI.startswith(('postgres://', 'postgresql://', 'postgresql+psycopg2://')):
+    engine_options['connect_args'] = {
+        'connect_timeout': 60,
+        'sslmode': os.getenv('DB_SSLMODE', 'require')
+    }
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = engine_options
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 # Google OAuth Configuration
@@ -97,11 +104,20 @@ def _is_mysql_or_mariadb():
     except Exception:
         return False
 
-# Enforce MySQL/MariaDB only
+def _is_postgresql():
+    try:
+        return db.engine.name == 'postgresql'
+    except Exception:
+        return False
+
+# Enforce known supported SQLAlchemy engines
 try:
     with app.app_context():
-        if not _is_mysql_or_mariadb():
-            raise RuntimeError(f"This deployment must use MySQL/MariaDB only. Current engine: {getattr(db.engine, 'name', 'unknown')} (set DATABASE_URI to mysql+pymysql://...)")
+        if not (_is_mysql_or_mariadb() or _is_postgresql() or _is_sqlite()):
+            raise RuntimeError(
+                f"Unsupported database engine: {getattr(db.engine, 'name', 'unknown')}. "
+                "Use a PostgreSQL/Supabase URI, MySQL/MariaDB URI, or SQLite."
+            )
 except Exception as _e:
     # Fail fast on startup
     raise
